@@ -28,7 +28,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
       - name: Building
-        run: cargo build --verbose --release
+        run: cd privaxy && cargo build --verbose --release
       - name: Upload artifact
         uses: actions/upload-artifact@v4
           with:
