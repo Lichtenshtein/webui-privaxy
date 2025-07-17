@@ -31,7 +31,7 @@ jobs:
         run: cd privaxy && cargo build --verbose --release
       - name: Upload artifact
         uses: actions/upload-artifact@v4
-          with:
+        with:
           path: build
           name: test.zip
           if-no-files-found: error
