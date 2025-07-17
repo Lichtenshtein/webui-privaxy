@@ -1,0 +1,37 @@
+name: Privaxy Test Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  ROOT: ${{ github.workspace }}
+
+jobs:
+  build:
+    name: Build Project
+    strategy:
+      matrix:
+        target:
+          - mipsel-unknown-linux-gnu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        run: rustup update stable
+      - name: Install cross-compilation tools
+        uses: taiki-e/setup-cross-toolchain-action@v1
+        with:
+          target: ${{ matrix.target }}
+      - name: Building
+        run: cd privaxy && cargo build --verbose --release
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+          with:
+          path: build
+          name: test.zip
+          if-no-files-found: error
