@@ -12,26 +12,14 @@ env:
   ROOT: ${{ github.workspace }}
 
 jobs:
-  build:
-    name: Build Project
-    strategy:
-      matrix:
-        target:
-          - mipsel-unknown-linux-gnu
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust
-        run: rustup update nightly && rustup default nightly && rustup target add mipsel-unknown-linux-gnu
+        run: rustup update nightly && rustup default nightly
       - name: Install cross-compilation tools
         uses: taiki-e/setup-cross-toolchain-action@v1
         with:
-          target: ${{ matrix.target }}
-      - name: Building
-        run: cd ./privaxy && cargo build --verbose --release -Z build-std
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          path: build
-          name: test.zip
-          if-no-files-found: error
+          target: mipsel-unknown-linux-gnu
+      - run: cargo test --verbose -Z build-std
