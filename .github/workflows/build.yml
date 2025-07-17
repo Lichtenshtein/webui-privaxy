@@ -22,4 +22,4 @@ jobs:
         uses: taiki-e/setup-cross-toolchain-action@v1
         with:
           target: mipsel-unknown-linux-gnu
-      - run: cargo test --verbose -Z build-std
+      - run: cd ./privaxy && cargo test --verbose -Z build-std
