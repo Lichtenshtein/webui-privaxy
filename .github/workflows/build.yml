@@ -22,13 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust
-        run: rustup update stable
+        run: rustup update stable && rustup target add mipsel-unknown-linux-gnu
       - name: Install cross-compilation tools
         uses: taiki-e/setup-cross-toolchain-action@v1
         with:
           target: ${{ matrix.target }}
       - name: Building
-        run: cd privaxy && cargo build --verbose --release
+        run: cd ./privaxy && cargo build --verbose --release
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
