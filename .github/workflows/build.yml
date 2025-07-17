@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust
-        run: rustup update stable && rustup target add mipsel-unknown-linux-gnu
+        run: rustup update nightly && rustup target add mipsel-unknown-linux-gnu
       - name: Install cross-compilation tools
         uses: taiki-e/setup-cross-toolchain-action@v1
         with:
